@@ -1,1 +1,1 @@
-# atlas-web_front_end
+# ATLAS-WEB_FRONT_END
