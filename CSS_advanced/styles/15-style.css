@@ -37,8 +37,8 @@
     --section-title-color: var(--color-black);
 }
 
-* {
-    box-sizing: content-box;
+*, *::after, *::before {
+    box-sizing: border-box;
 }
 
 html {
