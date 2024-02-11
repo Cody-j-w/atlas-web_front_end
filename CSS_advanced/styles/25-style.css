@@ -33,7 +33,7 @@
     /* buttons */
     --button-display: inline-block;
     --button-padding: 1.5rem 3rem;
-    --button-border: 0.2 solid var(--color-primary);
+    --button-border: 0.2rem solid var(--color-primary);
     --button-color: var(--color-black);
     --button-hover-color: var(--color-white);
     --button-hover-background: var(--color-primary);
@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-bold);
 }
 
-button {
+.button {
     display: var(--button-display);
     padding: var(--button-padding);
     border: var(--button-border);
@@ -119,7 +119,7 @@ button {
     text-decoration: var(--button-text-decoration);
 }
 
-button:hover {
+.button:hover {
     color: var(--button-hover-color);
     text-decoration: var(--button-hover-text-decoration);
     background-color: var(--button-hover-background);
