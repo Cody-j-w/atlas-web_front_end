@@ -75,7 +75,7 @@
 
     /* transitions */
     --transition-duration: .3s;
-    --transition-cubic-bezier: cubic-bezier(0.17, 0.67, 1.01);
+    --transition-cubic-bezier: cubic-bezier(0.17, 0.67, 1.0);
 }
 
 [data-section-theme="dark"] {
@@ -197,12 +197,11 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: -0.1rem; left: -0.1rem; right: -0.1rem;
     z-index: 1;
+    transition: var(--transition-duration) var(--transition-cubic-bezier);
 }
 
 .card-work:hover .card-inner {
     background-color: rgba(0, 0, 0, 0.7);
-    transition: var(--transition-duration) var(--transition-cubic-bezier);
-
 }
 
 .card-work:hover .card-image {
