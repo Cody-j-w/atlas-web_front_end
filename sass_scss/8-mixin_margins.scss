@@ -1,5 +1,6 @@
 @mixin margins($value: 10px){
-    margin: 0 $value;
+    margin-left: $value;
+    margin-right: $value;
 }
 
 body {
