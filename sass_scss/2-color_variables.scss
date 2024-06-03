@@ -2,14 +2,14 @@ $text: #3D3D3D;
 $bg: #6D6D6D;
 
 body {
-    color: text;
-    background-color: bg;
+    color: $text;
+    background-color: $bg;
 }
 
 p {
-    color: text;
+    color: $text;
 }
 
 h2 {
-    background-color: bg;
+    background-color: $bg;
 }
