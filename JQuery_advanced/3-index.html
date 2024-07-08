@@ -19,22 +19,22 @@
                 const subTable = $("<thead><tr></tr></thead>");
                 const firstName = $("<th></th>").text("Firstname");
                 const lastName = $("<th></th>").text("Lastname");
-                subTable.append(firstName).append(lastName);
+                subTable.append(firstName, lastName);
                 const tableBody = $("<tbody></tbody>");
                 const row1 = $("<tr></tr>");
                 const first1 = $("<td></td>").text("Guillaume");
                 const sur1 = $("<td></td>").text("Salva");
-                row1.append(first1).append(sur1);
+                row1.append(first1, sur1);
                 const row2 = $("<tr></tr>");
                 const first2 = $("<td></td>").text("Antoine");
                 const sur2 = $("<td></td>").text("Salva");
-                row2.append(first2).append(sur2);
+                row2.append(first2, sur2);
                 const row3 = $("<tr></tr>")
                 const first3 = $("<td></td>").text("Paulette");
                 const sur3 = $("<td></td>").text("Salva");
-                row3.append(first3).append(sur3);
-                tableBody.append(row1).append(row2).append(row3);
-                newTable.append(subTable).append(tableBody);
+                row3.append(first3, sur3);
+                tableBody.append(row1, row2, row3);
+                newTable.append(subTable, tableBody);
                 $('body').append(newTable);
             }
             createFamilyTree();
