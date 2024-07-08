@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script
+			  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+			  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+			  crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+<script>
+        $( document ).ready(() => {
+            function createFamilyTree() {
+                const newTable = $("<table></table>");
+                const subTable = $("<thead><tr></tr></thead>");
+                const firstName = $("<th></th>").text("Firstname");
+                const lastName = $("<th></th>").text("Lastname");
+                subTable.append(firstName).append(lastName);
+                const tableBody = $("<tbody></tbody>");
+                const row1 = $("<tr></tr>");
+                const first1 = $("<td></td>").text("Guillaume");
+                const sur1 = $("<td></td>").text("Salva");
+                row1.append(first1).append(sur1);
+                const row2 = $("<tr></tr>");
+                const first2 = $("<td></td>").text("Antoine");
+                const sur2 = $("<td></td>").text("Salva");
+                row2.append(first2).append(sur2);
+                const row3 = $("<tr></tr>")
+                const first3 = $("<td></td>").text("Paulette");
+                const sur3 = $("<td></td>").text("Salva");
+                row3.append(first3).append(sur3);
+                tableBody.append(row1).append(row2).append(row3);
+                newTable.append(subTable).append(tableBody);
+                $('body').append(newTable);
+            }
+            createFamilyTree();
+        });
+</script>
+    </body>
+
+</html>
