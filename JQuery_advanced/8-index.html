@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script
+			  src="https://code.jquery.com/jquery-3.7.1.min.js"
+			  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			  crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+<script>
+        $( document ).ready(() => {
+            function createSearchForm() {
+                const input = $("<input type='text'>");
+                const submit = $("<input id='submit' type='submit' value='submit'>");
+                const list = $("<ul></ul>");
+                const pagination = $("<ul id='pagination'></ul>");
+                $('body').append(input, submit, list);
+                $("#submit").on("click", () => {
+                    queryWikipedia($('input').first().val());
+                });
+            }
+            createSearchForm();
+
+            function addNewArticle(id, title, snippet) {
+                const newItem = $("<li></li>")
+                // Contruct title section
+                const titleSection = $("<p></p>")
+                const idItem = $("<span></span>").text(`${id} - `);
+                const titleItem = $("<b></b>").text(title);
+                titleSection.append(idItem, titleItem);
+                // construct snippet section and put the list element together.
+                const snippetSection = $(`<p>${snippet}</p>`);
+                newItem.append(titleSection, snippetSection);
+                $('ul').append(newItem);
+            }
+            function queryWikipedia(search, offset=0) {
+
+                $.ajax({
+                    url: `https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=${search}&sroffset=${offset}&origin=*`
+                }).done((data) => {
+                    const current = offset;
+                    const total = data['query']['searchinfo']['totalhits'];
+                    const items = 10;
+                    buildPagination(total, items, current);
+                    for(article of data['query']['search']) {
+                        const articleTitle = article.title;
+                        const articleId = article.pageid;
+                        const articleSnippet = article.snippet;
+                        addNewArticle(articleId, articleTitle, articleSnippet);
+                    }
+                })
+            }
+
+            function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+                $("#pagination").html("");
+                for (i = 0; i <= (numberOfItems/itemsPerPage); i++) {
+
+                }
+            }
+        });
+</script>
+    </body>
+
+</html>
