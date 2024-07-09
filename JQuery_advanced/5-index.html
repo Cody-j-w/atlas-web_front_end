@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script
+			  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+			  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+			  crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+<script>
+        $( document ).ready(() => {
+           function createFamilyTree() {
+            const newTable = $("<table></table>");
+            const newHeader = $("<thead></thead>");
+            const newBody = $("<tbody id='table-body'></tbody>");
+            const headerFirst = $("<th></th>").text("Firstname");
+            const headerLast = $("<th></th>").text("Lastname");
+            newHeader.append(headerFirst, headerLast);
+            newTable.append(newHeader, newBody);
+            $("body").append(newTable);
+           }
+
+           function addNewMember(first, last) {
+            const newRow = $(`<tr id="${first}-${last}"></tr>`);
+            const cell1 = $("<td></td>").text(first);
+            const cell2 = $("<td></td>").text(last);
+            const cell3 = $(`<td id="remove-${first}-${last}" ></td>`).text("(x)");
+            cell3.css('background-color', 'orange');
+            cell3.css('cursor', 'pointer');
+            newRow.append(cell1, cell2, cell3);
+            $("#table-body").append(newRow);
+            $(`#remove-${first}-${last}`).on("click", () => {
+                $(`#${first}-${last}`).remove();
+            })
+           }
+           createFamilyTree();
+           addNewMember("Guillaume", "Salva");
+           addNewMember("Arielle", "Snizt");
+           addNewMember("Fanette", "Snizt");
+           addNewMember("Gerard", "Snizt");
+           addNewMember("Victor", "Salva");
+        });
+</script>
+    </body>
+
+</html>
