@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <title>Task 0</title>
+        <script
+			  src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+			  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+			  crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+<script>
+        $( document ).ready(() => {
+           function createFamilyTree() {
+            const newTable = $("<table></table>");
+            const newHeader = $("<thead></thead>");
+            const newBody = $("<tbody id='table-body'></tbody>");
+            const headerFirst = $("<th></th>").text("Firstname");
+            const headerLast = $("<th></th>").text("Lastname");
+            newHeader.append(headerFirst, headerLast);
+            newTable.append(newHeader, newBody);
+            $("body").append(newTable);
+           }
+
+           function addNewMember(first, last, position) {
+            const newRow = $(`<tr id="${first}-${last}"></tr>`);
+            const cell1 = $("<td></td>").text(first);
+            const cell2 = $("<td></td>").text(last);
+            const cell3 = $(`<td id="remove-${first}-${last}" ></td>`).text("(x)");
+            cell3.css('background-color', 'orange');
+            cell3.css('cursor', 'pointer');
+            newRow.append(cell1, cell2, cell3);
+            if (position === 'after') {
+                $("#table-body").append(newRow);
+            } else {
+                $("#table-body").prepend(newRow);
+            }
+            $(`#remove-${first}-${last}`).on("click", () => {
+                $(`#${first}-${last}`).remove();
+            })
+           }
+           function createForm() {
+            const firstInput = $("<input type='text' id='first'>");
+            const lastInput = $("<input type='text' id='last'>");
+            const posSelect = $("<select id='position'>");
+            const option1 = $("<option value='before'></option").text("Before");
+            const option2 = $("<option value='after'></option").text("After");
+            posSelect.append(option1, option2);
+            const submit = $("<input id='submit-button' type='submit' value='submit'>")
+            $('table').before(firstInput, lastInput, posSelect, submit);
+            $("#submit-button").on("click", () => {
+                addNewMember($('input').first().val(), $('input:nth-of-type(2)').val(), $('select').first().val());
+            })
+           }
+           createFamilyTree();
+           createForm();
+        });
+</script>
+    </body>
+
+</html>
