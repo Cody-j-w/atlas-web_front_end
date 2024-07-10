@@ -14,14 +14,16 @@
     <body>
 <script>
         $( document ).ready(() => {
+            let searchItem ="";
             function createSearchForm() {
                 const input = $("<input type='text'>");
                 const submit = $("<input id='submit' type='submit' value='submit'>");
-                const list = $("<ul></ul>");
+                const list = $("<ul id='list'></ul>");
                 const pagination = $("<ul id='pagination'></ul>");
-                $('body').append(input, submit, list);
+                $('body').append(input, submit, list, pagination);
                 $("#submit").on("click", () => {
-                    queryWikipedia($('input').first().val());
+                    searchItem = $('input').first().val();
+                    queryWikipedia(searchItem);
                 });
             }
             createSearchForm();
@@ -36,10 +38,10 @@
                 // construct snippet section and put the list element together.
                 const snippetSection = $(`<p>${snippet}</p>`);
                 newItem.append(titleSection, snippetSection);
-                $('ul').append(newItem);
+                $('#list').append(newItem);
             }
             function queryWikipedia(search, offset=0) {
-
+                $("#list").html("");
                 $.ajax({
                     url: `https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=${search}&sroffset=${offset}&origin=*`
                 }).done((data) => {
@@ -57,10 +59,20 @@
             }
 
             function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+
                 $("#pagination").html("");
                 for (i = 0; i <= (numberOfItems/itemsPerPage); i++) {
-
+                    const pageNum = i;
+                    const pageTab = $(`<li id=${i}"></li>`).text(i+1).on('click', () => {
+                        queryWikipedia(searchItem, pageNum*10);
+                    });
+                    pageTab.css({cursor: 'pointer', marginLeft: '10px', display: 'inline'});
+                    if (i === (currentOffset/itemsPerPage)) {
+                        pageTab.css('font-weight', 'bold');
+                    }
+                    $("#pagination").append(pageTab);
                 }
+
             }
         });
 </script>
