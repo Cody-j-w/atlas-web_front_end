@@ -19,76 +19,25 @@
     <body>
 <script>
         $( document ).ready(() => {
-            let searchItem ="";
-            function createSearchForm() {
-                const input = $("<input type='text'>");
-                const submit = $("<input id='submit' type='submit' value='submit'>");
-                const list = $("<ul id='list'></ul>");
-                const pagination = $("<ul id='pagination'></ul>");
-                $('body').append(input, submit, list, pagination);
-                $("#submit").on("click", () => {
-                    searchItem = $('input').first().val();
-                    queryWikipedia(searchItem);
-                });
+            function addPostRow(data) {
+                const paragraph = $("<p></p>");
+                const content = $("<span></span>").text(`Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`);
+                paragraph.append(content);
+                $("body").append(paragraph);
             }
-            createSearchForm();
-
-            function addNewArticle(id, title, snippet) {
-                const newItem = $("<li></li>")
-                // Contruct title section
-                const titleSection = $("<p></p>")
-                const idItem = $("<span></span>").text(`${id} - `);
-                const titleItem = $("<b></b>").text(title);
-                titleSection.append(idItem, titleItem);
-                // construct snippet section and put the list element together.
-                const snippetSection = $(`<p>${snippet}</p>`);
-                newItem.append(titleSection, snippetSection);
-                $('#list').append(newItem);
-            }
-            function queryWikipedia(search, offset=0) {
-                displayLoading(true);
-                $.ajax({
-                    url: `https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=${search}&sroffset=${offset}&origin=*`
-                }).done((data) => {
-                    displayLoading(false);
-                    const current = offset;
-                    const total = data['query']['searchinfo']['totalhits'];
-                    const items = 10;
-                    buildPagination(total, items, current);
-                    $("#list").html("");
-                    for(article of data['query']['search']) {
-                        const articleTitle = article.title;
-                        const articleId = article.pageid;
-                        const articleSnippet = article.snippet;
-                        addNewArticle(articleId, articleTitle, articleSnippet);
+            function listPosts() {
+                console.log('querying database...');
+                $.get("http://localhost:3000/posts").done((data)=> {
+                    console.log("hit server")
+                    for (post of data) {
+                        console.log("adding new post to list")
+                        addPostRow(post);
                     }
+                }).fail(() => {
+                    alert("Server error")
                 })
             }
-
-            function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
-
-                $("#pagination").html("");
-                for (i = 0; i <= (numberOfItems/itemsPerPage); i++) {
-                    const pageNum = i;
-                    const pageTab = $(`<li id=${i}"></li>`).text(i+1).on('click', () => {
-                        queryWikipedia(searchItem, pageNum*10);
-                    });
-                    pageTab.css({cursor: 'pointer', marginLeft: '10px', display: 'inline'});
-                    if (i === (currentOffset/itemsPerPage)) {
-                        pageTab.css('font-weight', 'bold');
-                    }
-                    $("#pagination").append(pageTab);
-                }
-            }
-
-            function displayLoading(loading) {
-                const loadingList = $('ul').first();
-                if (loading === true) {
-                    loadingList.wrap("<div class='loading'></div>");
-                } else {
-                    loadingList.unwrap();
-                }
-            }
+            listPosts();
         });
 </script>
     </body>
