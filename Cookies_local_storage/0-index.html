@@ -16,19 +16,19 @@
     <script src="./src/index.js/"></script>
     </div>
 <script>
-    const cookies = {};
     function setCookies() {
         const email = document.getElementById("email");
         const name = document.getElementById("firstname");
         const emailValue = email.value;
         const nameValue = name.value;
-        cookies.firstname = nameValue;
-        cookies.email = emailValue;
+        document.cookie = `{"firstname": "${nameValue}", "email": "${emailValue}"}`;
+        const allCookies = document.cookie;
+        console.log(allCookies);
     }
     function showCookies() {
         const cookieSection = document.getElementById("cookie-section");
         const cookieP = document.createElement("p");
-        cookieP.innerHTML = `Cookies: ${JSON.stringify(cookies)}`
+        cookieP.innerHTML = `Cookies: ${document.cookie}`;
         cookieSection.appendChild(cookieP);
     }
 </script>
