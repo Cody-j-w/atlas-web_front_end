@@ -21,9 +21,9 @@
         const name = document.getElementById("firstname");
         const emailValue = email.value;
         const nameValue = name.value;
-        document.cookie = `{"firstname": "${nameValue}", "email": "${emailValue}"}`;
+        document.cookie = `firstname=${nameValue}` 
+        document.cookie = `email=${emailValue}`;
         const allCookies = document.cookie;
-        console.log(allCookies);
     }
     function showCookies() {
         const cookieSection = document.getElementById("cookie-section");
