@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+        const availableItems = ["Shampoo", "Sponge", "Soap", "Water"];
+        function sessionStorageAvailable() {
+            let test = "hi";
+            try {
+                sessionStorage.setItem(test, test);
+                sessionStorage.removeItem(test);
+                return true;
+            } catch(e) {
+                return false;
+            }
+        }
+        if (!sessionStorageAvailable()) {
+            alert("Sorry, your browser does not support Web storage. Try again with a better one");
+        } else {
+            console.log("loading store...")
+            createStore();
+            displayCart();
+        }
+
+        function addItemToCart(item) {
+            sessionStorage.setItem(item, true);
+        }
+
+        function createStore() {
+            const store = document.createElement("ul");
+            for (item of availableItems) {
+                const itemName = item;
+                const newItem = document.createElement("li");
+                newItem.innerHTML = item;
+                newItem.addEventListener("click", ()=> {
+                    addItemToCart(itemName);
+                });
+                store.append(newItem);
+            }
+            document.body.append(store);
+        }
+
+        function displayCart() {
+            if (sessionStorage.length !== 0) {
+                const message = `You previously had ${sessionStorage.length} items in your cart`;
+                const messageP = document.createElement("p");
+                messageP.innerHTML = message;
+                document.body.append(messageP);
+            }
+        }
+
+        sessionStorageAvailable();
+</script>
+</body>
+</html>
