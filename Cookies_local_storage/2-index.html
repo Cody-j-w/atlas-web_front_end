@@ -23,19 +23,21 @@
         const name = document.getElementById("firstname");
         const emailValue = email.value;
         const nameValue = name.value;
-        document.cookie = `{"firstname": "${nameValue}", "email": "${emailValue}"};expires=${expiry}`;
+        document.cookie = `firstname=${nameValue};expires=${expiry}`;
+        document.cookie = `email=${emailValue};expires=${expiry}`
 
     }
     function showCookies() {
         const cookieSection = document.getElementById("cookie-section");
         const cookieP = document.createElement("p");
-        const cookieValues = JSON.parse(document.cookie);
-        console.log(typeof(cookieValues));
-        cookieP.innerHTML = `Email: ${cookieValues.email} - Firstname: ${cookieValues.firstname}`;
+        cookieP.innerHTML = `Email: ${getCookie("email")} - Firstname: ${getCookie("firstname")}`;
         cookieSection.appendChild(cookieP);
     }
     function getCookie(name) {
-        
+        const cookies = `; ${document.cookie}`;
+        const token = cookies.split(`; ${name}=`);
+        if (token.length === 2) return token.pop().split(';').shift();
+
     }
 </script>
 </body>
